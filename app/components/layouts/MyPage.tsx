@@ -5,7 +5,7 @@ import { Picture } from "../../types/types";
 import PictureCardList from "../../components/elements/PictureCardList";
 
 const MyPage = async () => {
-  const response = await fetch("http://localhost:3000/api/pic", {
+  const response = await fetch("https://scs-tau.vercel.app/api/pic", {
     cache: "no-store",
   });
   const pictures: Picture[] = await response.json();
@@ -16,7 +16,6 @@ const MyPage = async () => {
       <div className="px-4 py-4 w-1/3">
         <PictureHistory pictures={pictures} />
       </div>
-
     </div>
   );
 };
