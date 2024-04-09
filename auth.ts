@@ -13,7 +13,7 @@ export const config: NextAuthConfig = {
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
   ],
-  basePath: "https://scs-tau.vercel.app/api/auth",
+  basePath: "/api/auth",
   callbacks: {
     authorized({ request, auth }) {
       try {
