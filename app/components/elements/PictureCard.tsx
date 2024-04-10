@@ -1,4 +1,3 @@
-import { Picture } from "@/app/types/types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,25 +16,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React from "react";
+import { supabase } from "@/lib/supabaseClient";
+import React, { useEffect, useState } from "react";
 
-interface PictureDataProps {
-  pictureData: Picture;
+interface PictureCardProps {
+  key: number;
+  pictureName: string;
+  pictureDate: string;
 }
 
-const PictureCard = ({ pictureData }: PictureDataProps) => {
-  const timestamp = pictureData.createdAt;
-  const date = new Date(timestamp).toLocaleString();
+const PictureCard = ({ pictureName, pictureDate }: PictureCardProps) => {
+  const public_url =
+    "https://dhxcxkousghslprmhbki.supabase.co/storage/v1/object/public/pictures/";
+
+  const time = new Date(
+    Number(pictureDate.substring(0, 4)),
+    Number(pictureDate.substring(5, 7)) - 1,
+    Number(pictureDate.substring(8, 10)),
+    Number(pictureDate.substring(11, 13)) + 9,
+    Number(pictureDate.substring(14, 16)),
+    Number(pictureDate.substring(17, 19))
+  ).toLocaleString();
   return (
-    <Card className="w-[350px] h-[320px]">
-      <CardHeader>
-        <CardTitle>{date}</CardTitle>
-        <CardDescription>The survelliance camera took a photo!</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="bg-gray-300 w-full h-[200px]"></div>
-      </CardContent>
-    </Card>
+    <div className="flex border">
+      <img
+        src={public_url + pictureName}
+        className="w-[300px] h-[200px] rounded-sm"
+      />
+      <div className="flex flex-col ml-10">
+        <div className="font-bold text-[3rem]">{time}</div>
+        <div className="font-bold text-3xl text-red-400">
+          Human is detected!!
+        </div>
+      </div>
+    </div>
   );
 };
 
